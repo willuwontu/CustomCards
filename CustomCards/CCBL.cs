@@ -1,9 +1,10 @@
 ﻿using BepInEx;
 using HarmonyLib;
+using UnityEngine;
 
 namespace R3DCore
 {
-    [BepInDependency("com.willis.rounds.unbound")]
+    [BepInDependency("com.willuwontu.rounds3d.cardmanager")]
     [BepInPlugin(ModId, ModName, Version)]
     [BepInProcess("ROUNDS 3D.exe")]
     internal class CCBL : BaseUnityPlugin
@@ -23,7 +24,21 @@ namespace R3DCore
         }
         void Start()
         {
+#if DEBUG
+            var glassCannongo = new GameObject("Glass Cannon", typeof(CustomCardUpgrade));
+            var glassCannon = glassCannongo.GetComponent<CustomCardUpgrade>();
+            DontDestroyOnLoad(glassCannon.gameObject);
 
+            glassCannon.cardname = "Glass Cannon";
+            glassCannon.modname = "CCAPI";
+            glassCannon.weight = 5;
+            glassCannon.stats.Health.multiplier = 0.5f;
+            glassCannon.stats.Damage.multiplier = 2;
+            glassCannon.stats.Speed.multiplier = 1.1f;
+            glassCannon.customStats.Add("Jump Height", new PlayerStatsEntry() { multiplier = 1.5f });
+
+            glassCannon.Register();
+#endif
         }
     }
 }

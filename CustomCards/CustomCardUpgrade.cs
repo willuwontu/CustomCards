@@ -23,14 +23,21 @@ namespace R3DCore
 
         public UnityEvent<CardInfo> buildEvent = new UnityEvent<CardInfo>();
 
+        public CardInfo cardInfo;
+
         public void Register()
         {
-            var cardInfo = CardManager.RegisterCard(this.cardname, this, modname, this.weight, this.canBeReassigned, this.hidden, this.allowMultiple);
+            this.cardInfo = CardManager.RegisterCard(this.cardname, this, modname, this.weight, this.canBeReassigned, this.hidden, this.allowMultiple);
 
-            cardInfo.categories = this.cardCategories;
-            cardInfo.blacklistedCategories = this.blacklistedCategories;
+            this.cardInfo.categories = this.cardCategories;
+            this.cardInfo.blacklistedCategories = this.blacklistedCategories;
 
             buildEvent?.Invoke(cardInfo);
+        }
+
+        public virtual void Awake()
+        {
+            DontDestroyOnLoad(this.gameObject);
         }
 
         #endregion CardInfo stuff
@@ -51,7 +58,8 @@ namespace R3DCore
             NrOfProjectiles = new PlayerStatsEntry(),
             Damage = new PlayerStatsEntry(),
             ProjectileSpeed = new PlayerStatsEntry(),
-            ProjectileBounces = new PlayerStatsEntry()
+            ProjectileBounces = new PlayerStatsEntry(),
+            FireRate = new PlayerStatsEntry(),
         };
         public Dictionary<string, PlayerStatsEntry> customStats = new Dictionary<string, PlayerStatsEntry>();
     }

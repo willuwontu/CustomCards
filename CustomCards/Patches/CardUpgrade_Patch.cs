@@ -61,14 +61,14 @@ namespace R3DCore.CCAPI.Patches
 
                 foreach (var kvp  in customCardUpgrade.customStats)
                 {
-                    if (customCardUpgrade.customStats.ContainsKey(kvp.Key))
+                    if (customHandler.customStats.ContainsKey(kvp.Key))
                     {
-                        customCardUpgrade.customStats[kvp.Key].AddStat(kvp.Value);
+                        customHandler.customStats[kvp.Key].AddStat(kvp.Value);
                     }
                     else
                     {
-                        customCardUpgrade.customStats[kvp.Key] = new PlayerStatsEntry();
-                        customCardUpgrade.customStats[kvp.Key].AddStat(kvp.Value);
+                        customHandler.customStats[kvp.Key] = new PlayerStatsEntry();
+                        customHandler.customStats[kvp.Key].AddStat(kvp.Value);
                     }
                 }
 
