@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Events;
 using R3DCore;
+using UnityEngine;
 
 namespace R3DCore
 {
@@ -41,6 +42,26 @@ namespace R3DCore
         }
 
         #endregion CardInfo stuff
+
+        private static GameObject _defaultGameObject;
+
+        internal static GameObject DefaultGameObject
+        {
+            get 
+            { 
+                if (_defaultGameObject == null)
+                {
+                    _defaultGameObject = new GameObject("CustomCardUpgradeHolder");
+                    DontDestroyOnLoad(_defaultGameObject);
+                }
+                return _defaultGameObject; 
+            }
+        }
+
+        public CustomCardUpgrade NewCustomCard()
+        {
+            return DefaultGameObject.AddComponent<CustomCardUpgrade>();
+        }
 
         public List<IApplyToPlayer> applyToPlayers = new List<IApplyToPlayer>();
         public List<IFireProjectile> fireProjectiles = new List<IFireProjectile>();
