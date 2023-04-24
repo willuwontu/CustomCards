@@ -24,9 +24,15 @@ namespace R3DCore
         }
         void Start()
         {
+            this.ExecuteAfterFrames(5, () =>
+            {
+                UnityEngine.Resources.LoadAll("");
+                var playergo = UnityEngine.Resources.Load<GameObject>("Player");
+                playergo.AddComponent<PL_CustomStatHandler>();
+            });
+
 #if DEBUG
-            var glassCannongo = new GameObject("Glass Cannon", typeof(CustomCardUpgrade));
-            var glassCannon = glassCannongo.GetComponent<CustomCardUpgrade>();
+            var glassCannon = CustomCardUpgrade.NewCustomCard(new GameObject("Glass Cannon"));
             DontDestroyOnLoad(glassCannon.gameObject);
 
             glassCannon.cardname = "Glass Cannon";

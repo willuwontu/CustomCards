@@ -58,9 +58,14 @@ namespace R3DCore
             }
         }
 
-        public CustomCardUpgrade NewCustomCard()
+        public static CustomCardUpgrade NewCustomCard()
         {
             return DefaultGameObject.AddComponent<CustomCardUpgrade>();
+        }
+
+        public static CustomCardUpgrade NewCustomCard(GameObject gameObject)
+        {
+            return gameObject.AddComponent<CustomCardUpgrade>();
         }
 
         public List<IApplyToPlayer> applyToPlayers = new List<IApplyToPlayer>();
